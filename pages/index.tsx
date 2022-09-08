@@ -1,8 +1,7 @@
 import {useState} from 'react'
 import Head from 'next/head'
 
-import {useQuery} from '@tanstack/react-query'
-
+import {useFetchPosts} from '../hooks/useFetchPosts'
 import {Post} from '../shared/types'
 import Pagination from '../components/Pagination'
 import BlogPost from '../components/BlogPost'
@@ -10,10 +9,7 @@ import BlogPost from '../components/BlogPost'
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const {isLoading, data, error} = useQuery(['posts'], () =>
-    fetch('https://6144e843411c860017d256f0.mockapi.io/api/v1/posts')
-      .then((res) => res.json())
-  )
+  const {isLoading, data, error} = useFetchPosts()
 
   const totalPages = data && Math.ceil(data.length / 6)
 
@@ -44,10 +40,18 @@ const Blog = () => {
     }
   }
 
+  if (isLoading) {
+    return <p data-testid="loading_message">Posts are still loading.</p>
+  }
+
+  if (error) {
+    return <p data-testid="error_message">There has been an error loading this page.</p>
+  }
+
   return (
     <div>
       <Head>
-        <title>Welcome to my recent blog entries! </title>
+        <title>Blog</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/css/uikit.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit-icons.min.js"></script>
@@ -55,7 +59,7 @@ const Blog = () => {
 
       <main>
         <h1>
-          Welcome to this blog!
+          Welcome to my blog entries!
         </h1>
         <Pagination
           totalPages={totalPages}
@@ -79,7 +83,6 @@ const Blog = () => {
                 )
             }
           </div>
-
       </main>      
     </div>
   )

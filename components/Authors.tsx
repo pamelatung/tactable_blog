@@ -15,9 +15,9 @@ const Authors = ({authors}: Props) => {
 	return (
 		<div>
 			{
-				authors.map((user) => {
+				authors.map((user, index) => {
 					return (
-						<Contributor>
+						<Contributor key={index}>
 							<Thumbnail 
 								src={error ? PLACEHOLDER : user.avatar}
 								onError={() => setError(true)}

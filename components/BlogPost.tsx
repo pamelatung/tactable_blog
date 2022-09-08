@@ -16,7 +16,6 @@ const CommentText = styled.a`
 `
 
 const BlogPost = ({post}: Props) => {
-
 	const newDate = new Date(post.createdAt)
 	const options: Intl.DateTimeFormatOptions = {
 		month: 'long',
@@ -26,7 +25,7 @@ const BlogPost = ({post}: Props) => {
 	const displayDate = newDate.toLocaleString('en-CA', options)
 
 	return (
-			<div key={post.id} className="uk-card uk-card-default uk-card-body uk-margin-medium-bottom">
+			<div className="uk-card uk-card-default uk-card-body uk-margin-medium-bottom" data-testid="blog_post">
 				<div>
 					<h3 className="uk-card-title">{post.title}</h3>
 					<p className="uk-text-small">{displayDate}</p>

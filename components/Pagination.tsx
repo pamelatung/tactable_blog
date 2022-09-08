@@ -19,7 +19,7 @@ const Pagination = ({
 						.map((page) => page + 1)
 
     return (
-			<ul className="uk-pagination" uk-margin>
+			<ul className="uk-pagination" uk-margin data-testid="page_navigator">
 				<li>
 					<a href="#" onClick={() => onBack()}>
 						<span uk-pagination-previous>back</span>
@@ -43,7 +43,7 @@ const Pagination = ({
 									</a>
 								</li>
 							)
-							
+
 							return isActive ? activeKey : inactiveKey
 						})
 					}
